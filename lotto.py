@@ -54,7 +54,7 @@ def print_hi(name):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    test01(myCon())
+    test04(myCon())
     print("=============================#########################################3")
     #print_hi(os.environ["PATH"])
 
