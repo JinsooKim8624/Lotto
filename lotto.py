@@ -37,6 +37,20 @@ def test04(connection):
     for row in rows:
         print(row)
 
+def insert( connection, seq, ball1, ball2, ball3, ball4, ball5, ball6, ball_bonus ):
+    sql = ('insert into lotto(seq, ball1, ball2, ball3, ball4, ball5, ball6, ball_bonus) '
+           'values(:seq, :ball1, :ball2, :ball3, :ball4, :ball5, :ball6, :ball_bonus)')
+
+    try:
+        with connection.cursor() as cursor:
+            # execute the insert statement
+            cursor.execute(sql, [seq, ball1, ball2, ball3, ball4, ball5, ball6, ball_bonus])
+            # commit work
+            connection.commit()
+    except cx_Oracle.Error as error:
+        print('Error occurred:')
+        print(error)
+
 
 LOCATION = r"C:\Users\jskim\PycharmProjects\instantclient_21_3"
 os.environ["PATH"] = LOCATION + ";" + os.environ["PATH"] #환경변수 등록
@@ -54,6 +68,7 @@ def print_hi(name):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    #insert(myCon(),1012, 5, 11, 18, 20, 35, 45, 3)
     test04(myCon())
     print("=============================#########################################3")
     #print_hi(os.environ["PATH"])
