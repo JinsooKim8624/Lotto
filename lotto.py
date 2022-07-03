@@ -4,8 +4,8 @@ import random
 
 
 def myCon():
-    dsn = cx_Oracle.makedsn("systrade.iptime.org", 1521, service_name = "XE") # 오라클 주소
-    connection = cx_Oracle.connect(user="indisystrade", password="sys123", dsn=dsn, encoding="UTF-8") # 오라클 접속
+    dsn = cx_Oracle.makedsn("localhost", 1521, service_name = "XE") # 오라클 주소
+    connection = cx_Oracle.connect(user="systrade", password="sys123", dsn=dsn, encoding="UTF-8") # 오라클 접속
     return connection;
 
 def test01(connection):
@@ -52,6 +52,7 @@ def latest01_06(connection):
     saveFile(str(latestSeq), rows)
 
 def readBallList(fileName):
+    print(fileName)
     with open(fileName) as f:
         lines = f.readlines()
     return lines
@@ -162,36 +163,46 @@ def makeAllCase(listArr):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    #insert(myCon(),1014, 3, 11, 14, 18, 26, 27, 21)
-    #latest01_06(myCon())
-    ballList = readBallList('1014.txt')
-    print(ballList)
-    poppedList = ballList.pop() #pop()은 리스트의 마지막 요소를 리스트에서 제거하고, 그 값을 리턴합니다
+    #insert(myCon(),1018, 3, 19, 21, 25, 37, 45, 35)
+    latest01_06(myCon())
+
+
+    ballListPrev = readBallList('1017.txt')
+    print(ballListPrev)
+    poppedListPrev = ballListPrev.pop() #pop()은 리스트의 마지막 요소를 리스트에서 제거하고, 그 값을 리턴합니다
     #print("=============================<보너스볼 포함>#########################################")
     #print_five_rows_include_Bonus_Ball(ballList)
     #print("=============================#########################################")
 
     print("=============================<보너스볼 미포함>#########################################")
-    excludeBonusBallArr = print_five_rows_exclude_Bonus_Ball(ballList)
+    excludeBonusBallArrPrev = print_five_rows_exclude_Bonus_Ball(ballListPrev)
     print("=============================#########################################")
-    listArr = list(excludeBonusBallArr) #set을 subscript로 접근하기 위하여 리스토로 변환
-    makeRandom(listArr)
+
+    ballListNow = readBallList('1018.txt')
+    print(ballListNow)
+    poppedListNow = ballListNow.pop() #pop()은 리스트의 마지막 요소를 리스트에서 제거하고, 그 값을 리턴합니다
+    print("=============================<보너스볼 미포함>#########################################")
+    excludeBonusBallArrPrev = print_five_rows_exclude_Bonus_Ball(ballListNow)
     print("=============================#########################################")
-    countOfAllCase, dictList = makeAllCase(listArr)
 
-    interval = int(countOfAllCase/5)
-    print('총 갯수 = ', countOfAllCase, '5개를 뽑 을때 간격 = ', interval)
-    first = random.randrange(1, 150)
-    second = random.randrange(151, 300)
-    third = random.randrange(301, 450)
-    fourth = random.randrange(451, 600)
-    fifth = random.randrange(601, 750)
+    #listArr = list(excludeBonusBallArr) #set을 subscript로 접근하기 위하여 리스토로 변환
+    #makeRandom(listArr)
+    print("=============================#########################################")
+    #countOfAllCase, dictList = makeAllCase(listArr)
 
-    print(f'{first} 첫번째 = ', dictList[first])
-    print(f'{second} 두번째 = ', dictList[second])
-    print(f'{third} 세번째 = ', dictList[third])
-    print(f'{fourth} 네번째 = ', dictList[fourth])
-    print(f'{fifth} 다섯번째 = ', dictList[fifth])
+    #interval = int(countOfAllCase/5)
+    #print('총 갯수 = ', countOfAllCase, '5개를 뽑 을때 간격 = ', interval)
+    #first = random.randrange(1, 150)
+    #second = random.randrange(151, 300)
+    #third = random.randrange(301, 450)
+    #fourth = random.randrange(451, 600)
+    #fifth = random.randrange(601, 750)
+
+    #print(f'{first} 첫번째 = ', dictList[first])
+    #print(f'{second} 두번째 = ', dictList[second])
+    #print(f'{third} 세번째 = ', dictList[third])
+    #print(f'{fourth} 네번째 = ', dictList[fourth])
+    #print(f'{fifth} 다섯번째 = ', dictList[fifth])
 
     #print_hi(os.environ["PATH"])
 
